@@ -14,6 +14,10 @@ async def lifespan(app: FastAPI):
     app.state.mongo_client = AsyncIOMotorClient(mongo_url)
     app.state.db = app.state.mongo_client[db_name]
     await app.state.db["ocr"].create_index("email", unique=True)
+    await app.state.db["refresh_tokens"].create_index("jti", unique=True)
+    await app.state.db["refresh_tokens"].create_index(
+        "expires_at", expireAfterSeconds=0
+    )
     yield
     app.state.mongo_client.close()
 

@@ -2,22 +2,13 @@ from datetime import datetime
 
 from pydantic import BaseModel, EmailStr
 
+# User Models
+
 
 class UserCreate(BaseModel):
     email: EmailStr
     Hash_password: str
     created_at: datetime
-
-
-class UserUpdateEmail(BaseModel):
-    email: EmailStr
-    Hash_password: str
-    updated_at: datetime
-
-
-class UserDelete(BaseModel):
-    email: EmailStr
-    deleted_at: datetime
 
 
 class UserInDB(BaseModel):
@@ -34,6 +25,20 @@ class UserOut(BaseModel):
     role: str
 
 
+class UserUpdateEmail(BaseModel):
+    email: EmailStr
+    Hash_password: str
+    updated_at: datetime
+
+
+class UserDelete(BaseModel):
+    email: EmailStr
+    deleted_at: datetime
+
+
+# Token Models
+
+
 class LoginRequest(BaseModel):
     email: EmailStr
     password: str
@@ -41,14 +46,14 @@ class LoginRequest(BaseModel):
 
 class TokenResponse(BaseModel):
     access_token: str
+    refresh_token: str
     token_type: str = "bearer"
 
 
-class TokenResponseONLogin(BaseModel):
+class RefreshRequest(BaseModel):
+    refresh_token: str
+
+
+class AccessTokenResponse(BaseModel):
     access_token: str
-    refresh_token: str
     token_type: str = "bearer"
-
-
-class RefreshTokenRequest(BaseModel):
-    refresh_token: str
