@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+sqlmodel
+motor
+pydantic
+python-jose[cryptography]
+python-dotenv
